@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s ease;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .page.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .question {
+            font-size: 3rem;
+            color: #d63384;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 2rem;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Arial', sans-serif;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #yes-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+        }
+
+        #yes-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #no-btn {
+            background: linear-gradient(45deg, #a8e6cf, #dcedc8);
+            color: #333;
+            position: relative;
+        }
+
+        #no-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .fireworks {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+        }
+
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ff6b6b, #feca57, #ffd93d);
+            border-radius: 50%;
+            animation: rise 2s ease-out forwards;
+        }
+
+        @keyframes rise {
+            0% {
+                bottom: 0;
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.5);
+            }
+            100% {
+                bottom: 50vh;
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .second-page {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 5rem;
+        }
+
+        .couple-image {
+            width: 300px;
+            height: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 2s ease 1s forwards;
+        }
+
+        .love-note {
+            font-size: 1.5rem;
+            color: #d63384;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+            font-family: 'Dancing Script', cursive;
+            opacity: 0;
+            animation: fadeIn 2s ease 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff6b6b;
+            animation: float 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .question {
+                font-size: 2rem;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            button {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+            .couple-image {
+                width: 250px;
+                height: 150px;
+            }
+            .love-note {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page" id="first-page">
+        <div class="question">Will you be my Valentine? 💖</div>
+        <div class="buttons">
+            <button id="yes-btn">YES</button>
+            <button id="no-btn">NO</button>
+        </div>
+        <div class="fireworks" id="fireworks"></div>
+    </div>
+
+    <div class="page hidden second-page" id="second-page">
+        <div class="couple-image">💑 Cute Couple Placeholder</div>
+        <div class="love-note">
+            My dearest love,<br><br>
+            From the moment our eyes met, I knew you were the one who would steal my heart forever. Your smile lights up my world like the stars in the night sky, and your laughter is the sweetest melody I've ever heard. Every day with you is a new adventure, filled with joy, love, and endless possibilities. You are my everything, my best friend, my soulmate. Happy Valentine's Day, my love! I cherish you more than words can express. 💕<br><br>
+            Forever yours,<br>
+            [Your Name]
+        </div>
+    </div>
+
+    <script>
+        const firstPage = document.getElementById('first-page');
+        const secondPage = document.getElementById('second-page');
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const fireworks = document.getElementById('fireworks');
+        const body = document.body;
+
+        let noClickCount = 0;
+
+        // Floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 2000);
+
+        // YES button click
+        yesBtn.addEventListener('click', () => {
+            body.style.background = 'black';
+            fireworks.style.display = 'block';
+            for (let i = 0; i < 50; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                spark.style.left = Math.random() * 100 + '%';
+                spark.style.animationDelay = Math.random() * 2 + 's';
+                fireworks.appendChild(spark);
+            }
+            setTimeout(() => {
+                firstPage.classList.add('hidden');
+                secondPage.classList.remove('hidden');
+                body.style.background = 'linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8)';
+            }, 2500);
+        });
+
+        // NO button click
+        noBtn.addEventListener('click', () => {
+            noClickCount++;
+            if (noClickCount === 1) {
+                noBtn.textContent = 'Really?';
+                moveButton();
+            } else if (noClickCount === 2) {
+                noBtn.textContent = 'Are you sure?';
+                moveButton();
+            } else if (noClickCount === 3) {
+                noBtn.textContent = 'You have no option, click YES 😏';
+                noBtn.style.position = 'static';
+                noBtn.style.left = 'auto';
+                noBtn.style.top = 'auto';
+            }
+        });
+
+        function moveButton() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+    </script>
+</body>
+</html>
